@@ -1,11 +1,11 @@
-import React, { Component } from 'react';  
-import { createContainer } from 'meteor/react-meteor-data';  
-import Games from '../api/collections/games.js';  
-import GameList from './gamelist.jsx';  
+import React, { Component } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+import Games from '../api/collections/games.js';
+import GameList from './gamelist.jsx';
 import GameBoard from './gameboard.jsx';
 import LoginForm from './loginform.jsx';
 
-class App extends Component {  
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,11 +55,11 @@ class App extends Component {
   }
 }
 
-export default createContainer(() => {  
-  Meteor.subscribe('games'); // NEW
+export default createContainer(() => {
+  Meteor.subscribe('games');
 
   return {
-  	user: Meteor.user(),
+    user: Meteor.user(),
     games: Games.find().fetch()
   };
 }, App);

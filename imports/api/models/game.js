@@ -1,7 +1,7 @@
 /**
  * GameStatus constants
  */
-export const GameStatuses = {  
+export const GameStatuses = {
   WAITING: 'WAITING',  // waiting player to join
   STARTED: 'STARTED',  // all spots are filled; can start playing
   FINISHED: 'FINISHED', // game is finished
@@ -12,7 +12,7 @@ export const GameStatuses = {
  * Game model, encapsulating game-related logics
  * It is data store independent
  */
-export class Game {  
+export class Game {
   /**
    * Constructor accepting a single param gameDoc.
    * gameDoc should contain the permanent fields of the game instance.
@@ -29,6 +29,10 @@ export class Game {
       this.status = GameStatuses.WAITING;
       this.board = [[null, null, null], [null, null, null], [null, null, null]];
       this.players = [];
+      this.totalDiamonds = 0;
+      this.diamondsNeeded = null;
+      this.totalClues = 0;
+      this.cluesNeeded = null;
     }
   }
 
@@ -38,7 +42,7 @@ export class Game {
    * @return {[]String] List of fields required persistent storage
    */
   persistentFields() {
-    return ['status', 'board', 'players'];
+    return ['status', 'board', 'players', 'totalDiamonds', 'diamondsNeeded', 'totalClues', 'cluesNeeded'];
   }
 
 /**
@@ -54,14 +58,20 @@ export class Game {
       throw "user already in game";
     }
 
-this.players.push({  
+this.players.push({
       userId: user._id,
-      username: user.username
+      username: user.username,
+      role: 'TEST',
+      diamonds: 0,
+      clues: 0
     });
 
 // game automatically start with 2 players
-    if (this.players.length === 2) {
+    if (this.players.length === 6) {
       this.status = GameStatuses.STARTED;
+      this.diamondsNeeded = this.players.length * 100;
+      this.cluesNeeded = 2 * 100;
+      this.setRoles();
     }
   }
 
@@ -117,6 +127,25 @@ this.players.push({
     }
   }
 
+  userSteal(user) {
+    console.log("made it");
+    console.log(user);
+    let playerIndex = this.userIndex(user);
+    console.log(playerIndex);
+    // this.players[user]
+    if (this.players[playerIndex].role == 'THIEF') {
+      this.players[playerIndex].diamonds += 1;
+      this.totalDiamonds += 1;
+    } else if (this.players[playerIndex].role == 'DETECTIVE') {
+      this.players[playerIndex].clues += 1;
+      this.totalClues += 1;
+    }
+    let winner = this.winner();
+    if (winner !== null) {
+      this.status = GameStatuses.FINISHED;
+    }
+  }
+
  /**
    * @return {Number} currentPlayerIndex 0 or 1
    */
@@ -138,34 +167,79 @@ this.players.push({
    */
   winner() {
     let board = this.board;
-    for (let playerIndex = 0; playerIndex < 2; playerIndex++) {
-      // check rows
-      for (let r = 0; r < 3; r++) {
-        let allMarked = true;
-        for (let c = 0; c < 3; c++) {
-          if (board[r][c] !== playerIndex) allMarked = false;
-        }
-        if (allMarked) return playerIndex;
-      }
-
-// check cols
-      for (let c = 0; c < 3; c++) {
-        let allMarked = true;
-        for (let r = 0; r < 3; r++) {
-          if (board[r][c] !== playerIndex) allMarked = false;
-        }
-        if (allMarked) return playerIndex;
-      }
-
-// check diagonals
-      if (board[0][0] === playerIndex && board[1][1] === playerIndex && board[2][2] === playerIndex) {
-        return playerIndex;
-      }
-      if (board[0][2] === playerIndex && board[1][1] === playerIndex && board[2][0] === playerIndex) {
-        return playerIndex;
-      }
+    if ((this.totalDiamonds >= this.diamondsNeeded) && (this.totalClues >= this.cluesNeeded)) {
+      return 'Tie';
+    } else if (this.totalDiamonds >= this.diamondsNeeded) {
+      return 'Thieves';
+    } else if (this.totalClues >= this.cluesNeeded) {
+      return 'Detectives';
     }
+    // for (let playerIndex = 0; playerIndex < 2; playerIndex++) {
+    //   if (this.players[playerIndex].diamonds >= this.diamondsNeeded) {
+    //     return 'Thieves';
+    //   }
+//       // check rows
+//       for (let r = 0; r < 3; r++) {
+//         let allMarked = true;
+//         for (let c = 0; c < 3; c++) {
+//           if (board[r][c] !== playerIndex) allMarked = false;
+//         }
+//         if (allMarked) return playerIndex;
+//       }
+
+// // check cols
+//       for (let c = 0; c < 3; c++) {
+//         let allMarked = true;
+//         for (let r = 0; r < 3; r++) {
+//           if (board[r][c] !== playerIndex) allMarked = false;
+//         }
+//         if (allMarked) return playerIndex;
+//       }
+
+// // check diagonals
+//       if (board[0][0] === playerIndex && board[1][1] === playerIndex && board[2][2] === playerIndex) {
+//         return playerIndex;
+//       }
+//       if (board[0][2] === playerIndex && board[1][1] === playerIndex && board[2][0] === playerIndex) {
+//         return playerIndex;
+//       }
+//     }
     return null;
+  }
+
+/**
+   * Helper method to set the roles of each user
+   */
+  setRoles() {
+    let detectives = this.numDetectives(this.players.length);
+    this.players[0].role = 'DETECTIVE';
+    this.players[1].role = 'THIEF';
+    this.players[2].role = 'THIEF';
+    this.players[3].role = 'THIEF';
+    this.players[4].role = 'DETECTIVE';
+    this.players[5].role = 'THIEF';
+    // for (let i = 0; i < this.players.length; i++) {
+    //   this.players[i].role = 'DETECTIVE'
+    // }
+  }
+
+/**
+   * Helper method to determine how many detectives there should be
+   * 
+   * @param {Number} numPlayers the number of players in current game
+   * @return (Number) the number of detectives
+   */
+  numDetectives(numPlayers) {
+    if (numPlayers <= 4) {
+      return 1;
+    } else if (numPlayers >= 7) {
+      return 3;
+    }
+    return 2;
+  }
+
+  addDiamonds(user, numDiamonds) {
+
   }
 
 /**

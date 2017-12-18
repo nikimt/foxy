@@ -1,7 +1,7 @@
-import {Game} from "../models/game.js";  
+import {Game} from "../models/game.js";
 import Games from "../collections/games.js";
 
-export let GamesController = {  
+export let GamesController = {
   newGame(user) {
     let game = new Game();
     game.userJoin(user);
@@ -23,6 +23,12 @@ export let GamesController = {
   userMarkGame(gameId, user, row, col) {
     let game = Games.findOne(gameId);
     game.userMark(user, row, col);
+    Games.saveGame(game);
+  },
+
+  userSteal(gameId, user) {
+    let game = Games.findOne(gameId);
+    game.userSteal(user);
     Games.saveGame(game);
   }
 }

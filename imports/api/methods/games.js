@@ -1,6 +1,6 @@
 import {GamesController} from "../controllers/gamescontroller.js";
 
-export const newGame = new ValidatedMethod({  
+export const newGame = new ValidatedMethod({
   name: 'games.newGame',
   validate: new SimpleSchema({}).validator(),
   run({}) {
@@ -8,7 +8,7 @@ export const newGame = new ValidatedMethod({
   }
 });
 
-export const userJoinGame = new ValidatedMethod({  
+export const userJoinGame = new ValidatedMethod({
   name: 'games.userJoinGame',
   validate: new SimpleSchema({
     gameId: {type: String}
@@ -18,7 +18,7 @@ export const userJoinGame = new ValidatedMethod({
   }
 });
 
-export const userLeaveGame = new ValidatedMethod({  
+export const userLeaveGame = new ValidatedMethod({
   name: 'games.userLeaveGame',
   validate: new SimpleSchema({
     gameId: {type: String}
@@ -28,7 +28,7 @@ export const userLeaveGame = new ValidatedMethod({
   }
 });
 
-export const userMarkGame = new ValidatedMethod({  
+export const userMarkGame = new ValidatedMethod({
   name: 'games.userMarkGame',
   validate: new SimpleSchema({
     gameId: {type: String},
@@ -39,3 +39,13 @@ export const userMarkGame = new ValidatedMethod({
     GamesController.userMarkGame(gameId, Meteor.user(), row, col);
   }
 });
+
+export const userSteal = new ValidatedMethod({
+  name: 'games.userSteal',
+  validate: new SimpleSchema({
+    gameId: {type: String}
+  }).validator(),
+  run({gameId}) {
+    GamesController.userSteal(gameId, Meteor.user());
+  }
+})

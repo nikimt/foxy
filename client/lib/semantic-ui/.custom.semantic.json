@@ -1,0 +1,9 @@
+{
+  "definitions": {
+    "site": true
+  },
+  "themes": {
+    "basic": true,
+    "default": true
+  }
+}

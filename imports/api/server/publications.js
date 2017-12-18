@@ -1,7 +1,7 @@
-import {GameStatuses} from '../models/game.js';  
+import {GameStatuses} from '../models/game.js';
 import Games from '../collections/games.js';
 
-Meteor.publish('games', function() {  
+Meteor.publish('games', function() {
   // access control: only for loggined-in users
   if (this.userId) { // this.userId is the id of the currently loggined in user
     // filtering: only games with WAITING and STARTED statuses
