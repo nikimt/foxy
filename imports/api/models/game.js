@@ -214,10 +214,10 @@ this.players.push({
     let detectives = this.numDetectives(this.players.length);
     this.players[0].role = 'DETECTIVE';
     this.players[1].role = 'THIEF';
-    this.players[2].role = 'THIEF';
-    this.players[3].role = 'THIEF';
-    this.players[4].role = 'DETECTIVE';
-    this.players[5].role = 'THIEF';
+    // this.players[2].role = 'THIEF';
+    // this.players[3].role = 'THIEF';
+    // this.players[4].role = 'DETECTIVE';
+    // this.players[5].role = 'THIEF';
     // for (let i = 0; i < this.players.length; i++) {
     //   this.players[i].role = 'DETECTIVE'
     // }
