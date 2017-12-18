@@ -67,7 +67,7 @@ this.players.push({
     });
 
 // game automatically start with 2 players
-    if (this.players.length === 6) {
+    if (this.players.length === 2) {
       this.status = GameStatuses.STARTED;
       this.diamondsNeeded = this.players.length * 100;
       this.cluesNeeded = 2 * 100;
