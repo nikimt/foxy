@@ -30,5 +30,11 @@ export let GamesController = {
     let game = Games.findOne(gameId);
     game.userSteal(user);
     Games.saveGame(game);
+  },
+
+  userFind(gameId, user) {
+    let game = Games.findOne(gameId);
+    game.userFind(user);
+    Games.saveGame(game);
   }
 }

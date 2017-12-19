@@ -330,3 +330,17 @@ header .navbar 		{
 	color: white;
 	font-family: 'Inconsolata', monospace;
 }
+
+#status {
+	color: black;
+}
+
+#detectives-seg {
+  border: none;
+  box-shadow: none;
+}
+
+#thieves-seg {
+  border: none;
+  box-shadow: none;
+}

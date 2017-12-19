@@ -128,18 +128,27 @@ this.players.push({
   }
 
   userSteal(user) {
-    console.log("made it");
+    console.log("made it to steal");
     console.log(user);
     let playerIndex = this.userIndex(user);
     console.log(playerIndex);
     // this.players[user]
-    if (this.players[playerIndex].role == 'THIEF') {
-      this.players[playerIndex].diamonds += 1;
-      this.totalDiamonds += 1;
-    } else if (this.players[playerIndex].role == 'DETECTIVE') {
-      this.players[playerIndex].clues += 1;
-      this.totalClues += 1;
+    this.players[playerIndex].diamonds += 1;
+    this.totalDiamonds += 1;
+    let winner = this.winner();
+    if (winner !== null) {
+      this.status = GameStatuses.FINISHED;
     }
+  }
+
+  userFind(user) {
+    console.log("made it to find");
+    console.log(user);
+    let playerIndex = this.userIndex(user);
+    console.log(playerIndex);
+    // this.players[user]
+    this.players[playerIndex].clues += 1;
+    this.totalClues += 1;
     let winner = this.winner();
     if (winner !== null) {
       this.status = GameStatuses.FINISHED;
@@ -212,12 +221,12 @@ this.players.push({
    */
   setRoles() {
     let detectives = this.numDetectives(this.players.length);
-    this.players[0].role = 'DETECTIVE';
-    this.players[1].role = 'THIEF';
+    this.players[0].role = 'THIEF';
+    this.players[1].role = 'DETECTIVE';
     // this.players[2].role = 'THIEF';
-    // this.players[3].role = 'THIEF';
-    // this.players[4].role = 'DETECTIVE';
-    // this.players[5].role = 'THIEF';
+    // this.players[3].role = 'DETECTIVE';
+    // this.players[4].role = 'THIEF';
+    // this.players[5].role = 'DETECTIVE';
     // for (let i = 0; i < this.players.length; i++) {
     //   this.players[i].role = 'DETECTIVE'
     // }

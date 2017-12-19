@@ -48,4 +48,14 @@ export const userSteal = new ValidatedMethod({
   run({gameId}) {
     GamesController.userSteal(gameId, Meteor.user());
   }
+});
+
+export const userFind = new ValidatedMethod({
+  name: 'games.userFind',
+  validate: new SimpleSchema({
+    gameId: {type: String}
+  }).validator(),
+  run({gameId}) {
+    GamesController.userFind(gameId, Meteor.user());
+  }
 })
