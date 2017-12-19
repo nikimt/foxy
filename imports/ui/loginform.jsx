@@ -53,7 +53,7 @@ export default class LoginForm extends Component {
       <div className="ui container center-aligned">
 
         <div className="ui container center-aligned full-page">
-          <div className="ui inverted center-aligned segment game-explanation-header">
+          <div className="ui inverted segment game-explanation-header center-aligned">
                 100<br /> Thieves
           </div>
           <div className="ui inverted segment game-explanation center-aligned">

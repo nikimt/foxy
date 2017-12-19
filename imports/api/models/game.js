@@ -67,10 +67,10 @@ this.players.push({
     });
 
 // game automatically start with 2 players
-    if (this.players.length === 2) {
+    if (this.players.length === 6) {
       this.status = GameStatuses.STARTED;
-      this.diamondsNeeded = this.players.length * 100;
-      this.cluesNeeded = 2 * 100;
+      this.diamondsNeeded = 3 * 100;
+      this.cluesNeeded = 3 * 100;
       this.setRoles();
     }
   }
@@ -223,10 +223,10 @@ this.players.push({
     let detectives = this.numDetectives(this.players.length);
     this.players[0].role = 'THIEF';
     this.players[1].role = 'DETECTIVE';
-    // this.players[2].role = 'THIEF';
-    // this.players[3].role = 'DETECTIVE';
-    // this.players[4].role = 'THIEF';
-    // this.players[5].role = 'DETECTIVE';
+    this.players[2].role = 'THIEF';
+    this.players[3].role = 'DETECTIVE';
+    this.players[4].role = 'THIEF';
+    this.players[5].role = 'DETECTIVE';
     // for (let i = 0; i < this.players.length; i++) {
     //   this.players[i].role = 'DETECTIVE'
     // }

@@ -237,10 +237,12 @@ header .navbar 		{
 
 .game-explanation-header {
 	font-family: 'Shadows Into Light', cursive;
-  font-size: 130px;
+  font-size: 8vmax;
   padding-top: 10%;
   padding-bottom: 3%;
   line-height: .6;
+  padding-right: 5%;
+  padding-left: 5%;
   /*background: black;*/
   /*background-color: black !important;*/
   /*text-decoration: underline;*/
@@ -248,7 +250,7 @@ header .navbar 		{
 
 .game-explanation-subheader {
 	font-family: 'Inconsolata', monospace;
-  font-size: 12px;
+  font-size: 2vmax;
   padding-top: 2%;
   padding-bottom: 5%;
   /*background-color: black;*/
@@ -257,7 +259,7 @@ header .navbar 		{
 
 .game-explanation {
 	font-family: 'Inconsolata', monospace;
-  font-size: 20px;
+  font-size: 1.5vmax;
   line-height: 1.2;
   /*padding-bottom: 10%;*/
   /*padding-top: 2%;*/
@@ -344,3 +346,17 @@ header .navbar 		{
   border: none;
   box-shadow: none;
 }
+
+/*@media only screen and (max-width: 320px) {
+
+   .game-explanation-header { 
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 60px;
+      padding-top: 10%;
+      padding-bottom: 3%;
+      line-height: .6;
+      padding-right: 5%;
+      padding-left: 5%;
+   }
+
+}*/

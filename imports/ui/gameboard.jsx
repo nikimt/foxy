@@ -132,8 +132,8 @@ renderAction() {
                 THIEVES<br />
                 {/*this.props.game.players[0].username} as {this.props.game.players[0].role}<br/>Number of diamonds: {this.props.game.players[0].diamonds*/}
                 {this.props.game.players[0].username}<br />
-                {/*this.props.game.players[2].username*/}user2<br />
-                {/*this.props.game.players[4].username*/}user4<br />
+                {this.props.game.players[2].username}<br />
+                {this.props.game.players[4].username}<br />
               </div>
               </div>
               <div className="ui column">
@@ -141,8 +141,8 @@ renderAction() {
                 DETECTIVES<br />
                 {/*this.props.game.players[0].username} as {this.props.game.players[0].role}<br/>Number of diamonds: {this.props.game.players[0].diamonds*/}
                 {this.props.game.players[1].username}<br />
-                {/*this.props.game.players[3].username*/}user3<br />
-                {/*this.props.game.players[5].username*/}user5<br />
+                {this.props.game.players[3].username}<br />
+                {this.props.game.players[5].username}<br />
               </div>
               </div>
             </div>
